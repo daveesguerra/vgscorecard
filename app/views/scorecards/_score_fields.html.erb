@@ -1,0 +1,5 @@
+<td>
+  <% hole = Hole.where("course_id = ? and hole_number = ?", @course.id, i).first %>
+  <%= f.input :score %>
+  <%= f.input :hole_id, as: :hidden, input_html: { value: hole.id }%>
+</td>

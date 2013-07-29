@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1><%= @scorecard.course.name %> <small><%= @scorecard.played_on %></small></h1>
+  </div>
+  <div class="large-12 columns">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="width:30px">Hole<br />Par</br />Yards</th>
+          <% @scorecard.course.holes.each do |h| %>
+            <th align="center"><%= h.hole_number %><br /><%= h.par %><br /><%= h.yards %></th>
+          <% end %>
+          <th>Total<br /><%= @scorecard.course.par %><br /><%= @scorecard.course.total_yards %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @scorecard.user_scores.each do |u| %>
+        <tr>
+          <td>
+            <% if u.user == @scorecard.top_player %>
+              <%= image_tag("crown.png", size: "22x22") %>
+            <% end %>            
+          </td>
+          <td>
+            <%= u.user.name %>
+          </td>
+          <% u.scores.order("hole_id ASC").each do |s| %>
+            <td><div class="<%= s.rank %>"><%= s.score %></div></td>
+          <% end %>
+          <td><%= u.total %></td>
+        </tr>
+        <% end %>    
+      </tbody>
+    </table>
+    <%= link_to "Back", course_path(@scorecard.course), class: "radius button" %>
+    <%= link_to "Edit", edit_scorecard_path(@scorecard), class: "radius button" if @scorecard.users.include?(current_user) %>
+  </div>
+  <% @scorecard.user_scores.each do |u| %>
+  <div class="large-<%= 12/@scorecard.user_scores.count %> columns">
+    <div class="panel">
+      <h4><%= u.user.name %></h4>
+      <div class="subheader">
+        Hole-in-Ones: <%= u.hole_in_ones %><br />
+        Albatrosses: <%= u.albatrosses %><br />
+        Eagles: <%= u.eagles %><br />
+        Birdies: <%= u.birdies %><br />
+        Evens: <%= u.evens %><br />
+        Bogeys: <%= u.bogeys %><br />
+        Double Bogeys: <%= u.double_bogeys %><br />
+        +Bogeys: <%= u.more_bogeys %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

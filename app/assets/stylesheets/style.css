@@ -1,0 +1,54 @@
+.under { 
+  -webkit-border-radius: 20px; 
+  -moz-border-radius: 20px; 
+  border-radius: 20px;
+  border: 1px solid #333333;
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.over {
+  border: 1px solid #333333;
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.even {
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.albatross {
+  background-color: #0000ff;
+  color: #ffffff;	
+}
+
+.eagle {
+  background-color: #0096ff;
+  color: #ffffff;	
+}
+
+.birdie {
+  background-color: #59bdfc;
+  color: #ffffff;	
+}
+
+.bogey {
+  background-color: #ff8a00;
+  color: #ffffff;
+}
+
+.doublebogey {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.totals {
+  border-top: 2px solid #333333;
+}

@@ -1,0 +1,14 @@
+<div class="row push-up">
+	<div class="large-12 columns">
+		<div class="bg pad">
+		  <h1><%= @course.name %></h1>
+			<%= simple_form_for @scorecard, html: { class: "large-8" } do |f| %>
+				<%= render partial: 'form', locals: { f: f } %>
+				<div class="large-12 columns">
+				  <%= link_to "Cancel", course_path(@course), class: "radius button alert" %>
+				  <%= f.button :submit, "Update", class: "radius button" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

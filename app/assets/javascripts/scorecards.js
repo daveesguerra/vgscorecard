@@ -1,0 +1,1 @@
+$("#scorecard_played_on").datepicker({dateFormat: "yy-mm-dd", inDate: 0});

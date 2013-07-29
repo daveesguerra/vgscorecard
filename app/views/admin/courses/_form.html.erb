@@ -1,0 +1,50 @@
+<h4>Course Info</h4>
+<div class="large-6 columns">
+  <%= f.input :name %>
+</div>
+<div class="large-6 columns">
+  <% unless @course_types.empty? %>
+    <%= f.input :course_type_id, collection: @course_types, prompt: "Select a course type" %>
+  <% end %>
+</div>
+<div class="large-12 columns">
+  <%= f.input :address %>
+</div>
+<div class="large-6 columns">
+  <%= f.input :city %>
+</div>
+<div class="large-6 columns">
+  <%= f.input :province %>
+</div>
+<div class="large-6 columns">
+  <%= f.input :country, prompt: "Select country" %>
+</div>
+<div class="large-6 columns">
+  <%= f.input :postal %>
+</div>
+<div class="large-6 columns">
+  <%= f.input :phone %>
+</div>
+<br style="clear: both"/>
+<div class="large-10 columns">
+  <h4>Holes</h4>
+<%= f.fields_for :holes do |builder| %>
+
+  <div class="large-1 columns">
+    <%= builder.input :hole_number, label: false, placeholder: "Hole #" %>
+  </div>
+  <div class="large-2 columns">
+    <%= builder.input :par, label: false, placeholder: "Par" %>
+  </div>
+  <div class="large-3 columns">
+    <%= builder.input :yards, label: false, placeholder: "Yards" %>
+  </div>
+  <div class="large-3 columns">
+    <%= builder.input :red, label: false, placeholder: "Red" %>
+  </div>
+  <div class="large-3 columns">
+    <%= builder.input :blue, label: false, placeholder: "Blue" %>
+  </div>
+
+<% end %>
+</div>

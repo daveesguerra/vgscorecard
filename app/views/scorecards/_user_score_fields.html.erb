@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <% unless @users.empty? %>
+      <%= f.input :user_id, collection: @users, prompt: "Select a user" %>
+    <% end %>
+  </td>
+  <% i = 1 %>
+  <%= f.fields_for :scores do |builder| %>
+    <%= render partial: "score_fields", locals: { f: builder, i: i } %>
+    <% i = i+1 %>
+  <% end %>
+</tr>

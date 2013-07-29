@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: vgscorecard
+  pool: 5
+  username: david
+  password: david

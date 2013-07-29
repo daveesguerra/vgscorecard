@@ -1,0 +1,118 @@
+<% content_for :title, "#{@course.name}, #{@course.city.strip}, #{@course.province.strip} — Vangolfers" %>
+<div class="row">
+  <div class="large-6 columns">
+    <h2><%= @course.name %></h2>
+      <div class="subheader"><%= @course.address %><br />
+        <%= "#{@course.city}, #{@course.province}" %><br />
+        <%= "#{@course.country}, #{@course.postal}" %><br />
+        <br />
+        <%= @course.phone %>
+      </div>  
+  </div>
+  <div class="large-3 columns subheader">
+    <%= @course.course_type.name %> - <%= @course.par %><br />
+    <%= pluralize(@course.holes.count, "hole")%><br />
+    <%= @course.total_yards %> yards<br />
+    Front 9: <%= @course.front_9_yards %> yards (par <%= @course.front_9_par %>)<br />
+    Back 9: <%= @course.back_9_yards %> yards (par <%= @course.back_9_par %>)<br />
+    Last Played: <%= @course.scorecards.count > 0? @course.last_played : "Never"  %>
+  </div>
+  <div class="large-3 columns">
+		<div class="gmaps4rails_map_single">
+		  <%= gmaps(@gmaps_options) %>
+		</div>
+		<%= simple_form_for @course do |f| %>
+		  <%= f.input :saddr, label: false, placeholder: "Get Directions" %>
+	  <% end %>
+  </div>
+  <div class="large-8 columns">
+    <%= link_to "Add Scores", new_scorecard_path(course: @course.id), class: "button radius" %>
+    <table>
+      <thead>
+        <tr>
+          <th>Hole</th>
+          <th>Yards</th>
+          <% if @course.course_type.name == "Full" %>
+            <th>Red</th>
+            <th>Blue</th>
+          <% end %>
+          <th>Par</th>
+          <th>Avg</th>
+          <th>Max</th>
+          <th>Min</th>
+          <th>1's</th>
+          <th>A</th>
+          <th>E</th>
+          <th>B</th>
+          <th>-</th>
+          <th>+1</th>
+          <th>+2</th>
+          <th>>2</th>
+        </tr>
+      <tbody>
+        <% @course.holes.each do |h| %>
+        <tr>
+          <td><%= h.hole_number %></td>
+          <td><%= h.yards %></td>
+          <% if @course.course_type.name == "Full" %>
+            <td style="background-color: red; color: white"><%= h.red %></td>
+            <td style="background-color: blue; color: white"><%= h.blue %></td>
+          <% end %>          
+          <td><%= h.par %></td>
+          <td><%= h.average_score %></td>
+          <td><%= h.max_score %></td>
+          <td><%= h.min_score %></td>
+          <td><%= h.hole_in_ones %></td>
+          <td><%= h.albatrosses %></td>
+          <td><%= h.eagles %></td>
+          <td><%= h.birdies %></td>
+          <td><%= h.evens %></td>
+          <td><%= h.bogeys %></td>
+          <td><%= h.double_bogeys %></td>
+          <td><%= h.more_bogeys %></td>
+        </tr>
+        <% end %>
+        <tr class="totals">
+          <td class="totals">
+          <td class="totals"><%= @course.total_yards %></td>
+          <% if @course.course_type.name == "Full" %>
+            <td class="totals" style="background-color: red; color: white"><%= @course.total_red %></td>
+            <td class="totals" style="background-color: blue; color: white"><%= @course.total_blue %></td>
+          <% end %>
+          <td class="totals"><%= @course.par %></td>
+          <% if @course.scorecards.count > 0 %>
+          <td class="totals"><%= @course.course_average %></td>
+          <td class="totals"></td>
+          <td class="totals"></td>
+          <td class="totals"><%= @course.hole_in_ones %></td>
+          <td class="totals"><%= @course.albatrosses %></td>
+          <td class="totals"><%= @course.eagles %></td>
+          <td class="totals"><%= @course.birdies %></td>
+          <td class="totals"><%= @course.evens %></td>
+          <td class="totals"><%= @course.bogeys %></td>
+          <td class="totals"><%= @course.double_bogeys %></td>
+          <td class="totals"><%= @course.more_bogeys %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="large-4 columns">
+    <br /><br />
+    <% if @course.scorecards.count > 0 %>
+    <h3>Top Player</h3>
+      <%= image_tag("crown.png") %> <%= link_to @course.top_player.name, user_path(@course.top_player) %> (<%= @course.top_score %>)
+    <h3>Recent Games</h3>
+      <% @course.scorecards.limit(5).order("played_on DESC").each do |s| %>
+        <%= link_to s.played_on, scorecard_path(s) %>
+        <ul>
+        <% s.user_scores.each do |u| %>
+          <li><%= link_to u.user.name, user_path(u) %> - <%= link_to u.total, scorecard_path(s) %></li>
+        <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+    <%= link_to "View All Scores", course_all_path(@course) %>
+  </div>
+</div>
+

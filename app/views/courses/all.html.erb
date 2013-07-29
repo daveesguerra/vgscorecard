@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1><%= @course.name %></h1>
+    <ul class="no-disc">
+      <% @course.scorecards.order("played_on DESC").each do |sc| %>
+        <li><%= link_to sc.played_on, scorecard_path(sc) %> - 
+        <% sc.user_scores.each do |u| %>
+          <%= link_to u.user.name, user_path(u.user) %> (<%= u.total %>)
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="large-12 columns">
+  <%= f.input :course_id, as: :hidden, input_html: { value: @course.id }%>
+  <%= f.input :played_on, as: :string %>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:30px">Hole<br />Par</br />Yards</th>
+        <% @course.holes.each do |h| %>
+          <th align="center"><%= h.hole_number %><br /><%= h.par %><br /><%= h.yards %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :user_scores do |builder| %>
+        <%= render "user_score_fields", f: builder %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

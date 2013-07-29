@@ -1,0 +1,10 @@
+<div class="row push-up">
+	<div class="large-12 columns">
+		<div class="bg pad">
+			<%= simple_form_for [:admin, @course], html: { class: "large-10" } do |f| %>
+				<%= render partial: 'form', locals: { f: f } %>
+				<div class="large-12 columns"><%= f.button :submit, "Create" %></div>
+			<% end %>
+		</div>
+	</div>
+</div>

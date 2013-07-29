@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="large-12 columns"><h1>Courses
+      <small>
+        <dl class="sub-nav">
+  			  <dt>Filter:</dt>
+  			  <dd class="<%= active(courses_path(all: true)) %>"><%= link_to "All (#{@count})", courses_path(all: true) %></dd>
+  			  <dd class="<%= active(courses_path(type: "Full")) %>"><%= link_to "Full", courses_path(type: "Full") %></dd>
+  				<dd class="<%= active(courses_path(type: "Par 3")) %>"><%= link_to "Par 3", courses_path(type: "Par 3") %></dd>
+  				<dd class="<%= active(courses_path(type: "Executive")) %>"><%= link_to "Executive", courses_path(type: "Executive") %></dd>
+  			</dl>
+  		</small>
+      </h1></div>
+
+    <div class="large-12 columns">
+      <% if @courses.count == 0 %>
+        <div class="large-12 columns">
+          <p>There are no courses entered.</p>
+        </div>      
+      <% else %>    
+      <ul class="no-disc"> 
+      <% @courses.each do |c| %>
+        <li><%= link_to c.name, course_path(c) %> - <%= c.city %>, <%= c.province %> (<%= c.course_type.name %>) 
+          <%= " - <em>Last Played: #{c.scorecards.last.played_on}</em>".html_safe if c.scorecards.count > 0 %>
+        </li>
+      <% end %>
+      </ul>
+      <% end %>
+    </div>
+    
+    <div class="large-12 columns">
+      <div class="gmaps4rails_map"><%= gmaps4rails(@json) %></div>
+    </div>
+</div>
